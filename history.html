@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lịch sử kiểm tra JFT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #F5F7FA;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .header h1 {
+            font-size: 1.8em;
+            margin: 0;
+            color: #4A90E2;
+        }
+        .search-section {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-section label {
+            font-weight: 500;
+            color: #4A90E2;
+            white-space: nowrap;
+        }
+        .search-section input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-section input:focus {
+            border-color: #4A90E2;
+            outline: none;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 0; /* Corrected comment: Removed reference to marginx */
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .history-table th, .history-table td {
+            border: 1px solid #E0E4EA;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9em;
+            min-width: 80px;
+            max-width: 200px;
+            overflow-wrap: break-word;
+            text-overflow: ellipsis;
+            white-space: normal; /* Allow wrapping for better readability */
+        }
+        .history-table th {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        .history-table tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        .history-table .delete-btn {
+            background-color: #EF4444;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        .history-table .delete-btn:hover {
+            background-color: #DC2626;
+        }
+        .error-message {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #4A90E2;
+        }
+        .rank-a {
+            color: #4A90E2;
+            font-weight: 500;
+        }
+        .rank-f {
+            color: #EF4444;
+            font-weight: 500;
+        }
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .confirm-modal-content {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+        .confirm-modal-content button {
+            padding: 8px 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .confirm-modal-content .confirm-btn {
+            background-color: #EF4444;
+            color: #FFFFFF;
+        }
+        .confirm-modal-content .cancel-btn {
+            background-color: #6B7280;
+            color: #FFFFFF;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #E0E4EA;
+            color: #6B7280;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .history-table th, .history-table td {
+                padding: 6px;
+                font-size: 0.8em;
+                min-width: 60px;
+                max-width: 150px;
+            }
+            .search-section label, .search-section input {
+                font-size: 14px;
+            }
+            .search-section input {
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lịch sử kiểm tra JFT</h1>
+    </div>
+
+    <div class="search-section">
+        <label for="search">Tìm kiếm:</label>
+        <input type="text" id="search" placeholder="Nhập tên, lớp, ngày (YYYY-MM-DD)" aria-label="Tìm kiếm lịch sử kiểm tra">
+    </div>
+    <div id="message" class="error-message"></div>
+
+    <div class="table-container">
+        <table class="history-table" id="history-table" role="grid" aria-label="Lịch sử kiểm tra JFT">
+            <thead>
+                <tr>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    <th>Ngày</th>
+                    <th>Tên</th>
+                    <th>Lớp</th>
+                    <th>文字と語彙</th>
+                    <th>会話・表現</th>
+                    <th>読解</th>
+                    <th>聴解</th>
+                    <th>Tổng</th>
+                    <th>Tỷ lệ</th>
+                    <th>Xếp loại</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="history-table-body"></tbody>
+        </table>
+    </div>
+
+    <div id="confirm-modal" class="confirm-modal">
+        <div class="confirm-modal-content">
+            <p>Bạn có chắc chắn muốn xóa kết quả này không?</p>
+            <button id="confirm-delete" class="confirm-btn">Xóa</button>
+            <button id="cancel-delete" class="cancel-btn">Hủy</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Tài liệu kiểm tra | Thiết kế bởi Thuận</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
+        import { getFirestore, collection, getDocs, deleteDoc, doc, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfy4QMD9_7PyFHpInNdKDRWuW4AYCtLJ4",
+            authDomain: "history-e4633.firebaseapp.com",
+            projectId: "history-e4633",
+            storageBucket: "history-e4633.firebasestorage.app",
+            messagingSenderId: "331974436893",
+            appId: "1:331974436893:web:10c3c6adf7b66d2b5fbef4",
+            measurementId: "G-DC055090BW"
+        };
+
+        // Initialize Firebase
+        let app, analytics, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            analytics = getAnalytics(app);
+            db = getFirestore(app);
+            enableIndexedDbPersistence(db).catch(err => console.warn('Offline mode failed:', err));
+            logEvent(analytics, 'page_view', { page_title: 'JFT History' });
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+            document.getElementById('message').textContent = 'Không thể kết nối với cơ sở dữ liệu. Vui lòng kiểm tra kết nối mạng.';
+        }
+
+        // Constants
+        const sectionPoints = {
+            "文字と語彙": 22, // 11 questions × 2 points
+            "会話・表現": 36, // 12 questions × 3 points
+            "読解": 60, // 12 questions × 5 points
+            "聴解": 60 // 12 questions × 5 points
+        };
+        const totalPossibleScore = 178;
+        const collectionName = 'testHistoryJFTde1';
+
+        // Utility functions
+        function normalizeString(str) {
+            return str
+                .normalize('NFKC')
+                .trim()
+                .replace(/[\s\u3000]+/g, '')
+                .replace(/[。！？｡!?.、，]/g, '')
+                .toLowerCase();
+        }
+
+        function getEvaluation(percentage) {
+            if (percentage >= 80) return 'A';
+            if (percentage >= 60) return 'B';
+            if (percentage >= 40) return 'C';
+            return 'F';
+        }
+
+        // Render table
+        async function renderHistoryTable(searchTerm = '') {
+            const historyTableBody = document.getElementById('history-table-body');
+            const messageDiv = document.getElementById('message');
+
+            if (!db) {
+                messageDiv.textContent = 'Không thể kết nối với cơ sở dữ liệu.';
+                return;
+            }
+
+            historyTableBody.innerHTML = '<tr><td colspan="13" class="loading">Đang tải...</td></tr>';
+
+            try {
+                // Fetch data from Firestore
+                const snapshot = await getDocs(collection(db, collectionName));
+                let testHistory = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                // Validate and sort data
+                testHistory = testHistory
+                    .filter(entry => {
+                        if (!entry.timestamp || typeof entry.timestamp.toDate !== 'function') {
+                            console.warn(`Invalid timestamp for entry: ${entry.id}`);
+                            return false;
+                        }
+                        return true;
+                    })
+                    .sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
+
+                // Filter by search term
+                if (searchTerm) {
+                    const normalizedSearch = normalizeString(searchTerm);
+                    testHistory = testHistory.filter(entry =>
+                        normalizeString(entry.name || '').includes(normalizedSearch) ||
+                        normalizeString(entry.class || '').includes(normalizedSearch) ||
+                        normalizeString(entry.date || '').includes(normalizedSearch)
+                    );
+                }
+
+                // Render table
+                historyTableBody.innerHTML = '';
+                if (testHistory.length === 0) {
+                    historyTableBody.innerHTML = '<tr><td colspan="13">Không có dữ liệu lịch sử.</td></tr>';
+                    messageDiv.textContent = '';
+                    return;
+                }
+
+                testHistory.forEach(entry => {
+                    const evaluation = getEvaluation(entry.percentage || 0);
+                    const rankClass = evaluation === 'A' ? 'rank-a' : evaluation === 'F' ? 'rank-f' : '';
+                    historyTableBody.innerHTML += `
+                        <tr>
+                            <td>${entry.timestamp.toDate().toLocaleString('vi-VN')}</td>
+                            <td>${entry.timestamp.toDate().toLocaleString('vi-VN')}</td>
+                            <td>${entry.date || 'N/A'}</td>
+                            <td>${entry.name || 'N/A'}</td>
+                            <td>${entry.class || 'N/A'}</td>
+                            <td>${entry.results?.['文字と語彙']?.score || 0}/${sectionPoints['文字と語彙']}</td>
+                            <td>${entry.results?.['会話・表現']?.score || 0}/${sectionPoints['会話・表現']}</td>
+                            <td>${entry.results?.['読解']?.score || 0}/${sectionPoints['読解']}</td>
+                            <td>${entry.results?.['聴解']?.score || 0}/${sectionPoints['聴解']}</td>
+                            <td>${entry.totalScore || 0}/${totalPossibleScore}</td>
+                            <td>${Math.round(entry.percentage || 0)}%</td>
+                            <td class="${rankClass}">${evaluation}</td>
+                            <td><button class="delete-btn" data-doc-id="${entry.id}">Xóa</button></td>
+                        </tr>
+                    `;
+                });
+                messageDiv.textContent = '';
+            } catch (error) {
+                console.error('Firestore error:', error);
+                const errorMessages = {
+                    'permission-denied': 'Bạn không có quyền truy cập dữ liệu.',
+                    'unavailable': 'Không thể kết nối với cơ sở dữ liệu. Vui lòng kiểm tra kết nối mạng.',
+                    'resource-exhausted': 'Hệ thống quá tải. Vui lòng thử lại sau.',
+                    default: 'Đã xảy ra lỗi. Vui lòng thử lại.'
+                };
+                messageDiv.textContent = errorMessages[error.code] || errorMessages.default;
+            }
+        }
+
+        // Delete entry
+        async function deleteHistoryEntry(docId) {
+            if (!db) {
+                document.getElementById('message').textContent = 'Không thể kết nối với cơ sở dữ liệu.';
+                return;
+            }
+
+            const modal = document.getElementById('confirm-modal');
+            modal.style.display = 'block';
+
+            document.getElementById('confirm-delete').onclick = async () => {
+                try {
+                    await deleteDoc(doc(db, collectionName, docId));
+                    logEvent(analytics, 'delete_test_record', { doc_id: docId });
+                    renderHistoryTable(document.getElementById('search').value.trim());
+                    modal.style.display = 'none';
+                } catch (error) {
+                    console.error('Delete error:', error);
+                    document.getElementById('message').textContent = error.code === 'permission-denied'
+                        ? 'Không có quyền xóa dữ liệu.'
+                        : 'Lỗi khi xóa kết quả.';
+                    modal.style.display = 'none';
+                }
+            };
+
+            document.getElementById('cancel-delete').onclick = () => {
+                modal.style.display = 'none';
+            };
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHistoryTable();
+            const searchInput = document.getElementById('search');
+            let debounceTimeout;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimeout);
+                    historyTableBody.innerHTML = '<tr><td colspan="13" class="loading">Đang tìm kiếm...</td></tr>';
+                    debounceTimeout = setTimeout(() => {
+                        logEvent(analytics, 'search', { search_term: searchInput.value.trim() });
+                        renderHistoryTable(searchInput.value.trim());
+                    }, 300);
+                });
+            }
+
+            document.getElementById('history-table-body').addEventListener('click', e => {
+                if (e.target.classList.contains('delete-btn')) {
+                    deleteHistoryEntry(e.target.dataset.docId);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
