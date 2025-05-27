@@ -1615,8 +1615,8 @@
         const sectionPoints = {
             1: 60, // 文字と語彙: 12 questions x 5 points
             2: 60, // 会話・表現: 12 questions x 5 points
-            3: 60, // 読解: 12 questions x 5 points
-            4: 60  // 聴解: 12 questions x 5 points
+            3: 45, // 読解: 12 questions x 5 points
+            4: 48  // 聴解: 12 questions x 5 points
         };
 
         let startTime = null;
@@ -1627,10 +1627,10 @@
         }
 
         function getEvaluation(percentage) {
-            if (percentage >= 80) return 'A';
-            if (percentage >= 60) return 'B';
-            if (percentage >= 40) return 'C';
-            if (percentage >= 20) return 'D';
+            if (percentage >= 85) return 'A';
+            if (percentage >= 70) return 'B';
+            if (percentage >= 60) return 'C';
+            if (percentage >= 55) return 'D';
             return 'F';
         }
 
