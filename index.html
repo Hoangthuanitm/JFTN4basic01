@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>模擬テスト（JFT)</title>
+    <title>総合テスト 第19～25課（げんごちしき）</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
@@ -111,24 +111,24 @@
             margin-top: 0;
         }
         button {
-    background-color: #4A90E2;
-    color: #FFFFFF;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 1em;
-    font-family: 'Roboto', sans-serif;
-    transition: background-color 0.2s, transform 0.1s;
-    margin-right: 10px;
-}
-button.reset {
-    background-color: #EF4444;
-}
-button.reset:hover {
-    background-color: #DC2626;
-}
+            background-color: #4A90E2;
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1em;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #357ABD;
+            transform: translateY(-1px);
+        }
+        button.reset {
+            background-color: #EF4444;
         }
         button.reset:hover {
             background-color: #DC2626;
@@ -146,8 +146,6 @@ button.reset:hover {
             background-color: #FFFFFF;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
             display: none;
         }
         .error-message {
@@ -168,7 +166,6 @@ button.reset:hover {
         }
         .result-table {
             width: 100%;
-            min-width: 800px;
             border-collapse: collapse;
             margin-top: 15px;
         }
@@ -177,7 +174,6 @@ button.reset:hover {
             padding: 10px;
             text-align: center;
             font-size: 0.9em;
-            white-space: nowrap;
         }
         .result-table th {
             background-color: #4A90E2;
@@ -190,33 +186,6 @@ button.reset:hover {
         .result-table tr.total {
             font-weight: bold;
             background-color: #E5E7EB;
-        }
-        .result-section::-webkit-scrollbar {
-            height: 8px;
-        }
-        .result-section::-webkit-scrollbar-thumb {
-            background-color: #4A90E2;
-            border-radius: 4px;
-        }
-        .result-section::-webkit-scrollbar-track {
-            background-color: #F5F7FA;
-        }
-        .image-placeholder {
-            width: 150px;
-            height: 120px;
-            border: 1px dashed #D1D5DB;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0;
-            background-color: #F9FAFB;
-            font-size: 0.9em;
-            overflow: hidden;
-        }
-        .image-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
         }
         footer {
             text-align: center;
@@ -302,20 +271,6 @@ button.reset:hover {
             color: #EF4444;
             font-weight: 500;
         }
-        .text-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #D1D5DB;
-            border-radius: 6px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px;
-            margin-top: 10px;
-            box-sizing: border-box;
-        }
-        .text-input:focus {
-            border-color: #4A90E2;
-            outline: none;
-        }
         @media (max-width: 600px) {
             .timer {
                 top: 10px;
@@ -326,21 +281,28 @@ button.reset:hover {
             .password-box {
                 width: 80%;
             }
-            .result-section {
-                padding: 10px;
-            }
-            .result-table th, .result-table td {
-                font-size: 0.8em;
-                padding: 8px;
-            }
         }
+        .image-placeholder img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        audio {
+            margin: 10px 0;
+            width: 100%;
+        }
+        #image-q1 {
+    width: 300px; /* Kích thước giống ảnh câu 2 */
+    height: auto;
+}
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>模擬テスト（JFT)</h1>
-        <h2>文字と語彙・会話・表現・読解・聴解</h2>
-        <p>時間：60 分</p>
+        <h1>総合テスト</h1>
+        <h2>第19～25課（げんごちしき - もじ・ごい）</h2>
+        <p>時間：25 分</p>
     </div>
 
     <div class="student-info">
@@ -362,17 +324,17 @@ button.reset:hover {
     <button id="history-test" type="button" onclick="window.showPasswordModal()">Lịch sử kiểm tra</button>
     <div id="message-info" class="error-message"></div>
 
-    <div id="timer" class="timer" style="display: none;">Thời gian còn lại: 60:00</div>
+    <div id="timer" class="timer" style="display: none;">Thời gian còn lại: 25:00</div>
 
-    <!-- 問題 I -->
-    <div class="question-section">
+    <!-- Question Sections -->
+    <div class="question-section" id="section-1">
         <h1>文字と語彙</h1>
         <h2>問題Ⅰ．絵を見て語の意味を一つ選んでください。</h2>
         <div class="vietnamese">Hãy nhìn tranh và chọn từ đúng</div>
         <div class="question">
             <p>問１</p>
-            <div class="image-placeholder">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgkN2OGc5Co8KfTqhQ9mdo_aGhMr3rmu43zGNfUdsdMdleN9JNMULbIUEX-1CaoQvYFb1Hpf3ffz4yLlOC5tsRhtUfI1orOdd3c37VhVcYRyNbrYHXNdSXHJveSxpQL1o98ND9OwwY6ksnK/s800/face_smile_man4.png" alt="Hình ảnh vấn đề I câu 1" id="image-q1">
+             <div class="image-placeholder">
+                <img src="https://i.pinimg.com/736x/74/e7/8a/74e78a77872057e7df40e5c21017e8bd.jpg" alt="Hình ảnh vấn đề I câu 2" id="image-q1">
             </div>
             <div class="options">
                 <div class="option">
@@ -434,8 +396,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 問題 II -->
-    <div class="question-section">
+    <div class="question-section" id="section-2">
         <h2>問題II．（　）になにをいれますか。いちばんいいものを一つえらんでください。</h2>
         <div class="vietnamese">Hãy chọn từ phù hợp trong ( )</div>
         <div class="question">
@@ -475,7 +436,7 @@ button.reset:hover {
             <div class="answer-feedback" id="feedback-5"></div>
         </div>
         <div class="question">
-            <p>問３．りょうりをしているとき、（　）を　きってしまいました。</p>
+            <p>問３．りょうりをしているとき、（　）を きってしまいました。</p>
             <div class="options">
                 <div class="option">
                     <input type="radio" id="q6-1" name="q6">
@@ -494,8 +455,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 問題 III -->
-    <div class="question-section">
+    <div class="question-section" id="section-3">
         <h2>問題III．____のことばはひらがなでどうかきますか。1、2、3．からいちばんいいものを一つえらんでください。</h2>
         <div class="vietnamese">Từ gạch chân thì viết hiragana như thế nào?</div>
         <div class="question">
@@ -554,8 +514,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 問題 IV -->
-    <div class="question-section">
+    <div class="question-section "“ id="section-4">
         <h2>問題IV．文をよんで、いちばんいいものを一つえらんでください。</h2>
         <div class="vietnamese">Hãy đọc câu và chọn đáp án đúng nhất （　 ）</div>
         <div class="question">
@@ -614,8 +573,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 会話・表現（文法） -->
-    <div class="question-section">
+    <div class="question-section" id="section-5">
         <h1>会話・表現</h1>
         <h2>文法：会話を読んで、一番いいものを一つえらんでください。</h2>
         <div class="vietnamese">Đọc hội thoại và chọn đáp án đúng nhất.</div>
@@ -777,8 +735,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 問題VI（表現） -->
-    <div class="question-section">
+    <div class="question-section" id="section-6">
         <h2>表現：会話を読んで、一番いいものを一つえらんでください。</h2>
         <div class="vietnamese">Đọc hội thoại và chọn đáp án đúng nhất.</div>
         <div class="question">
@@ -936,8 +893,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 読解 -->
-    <div class="question-section">
+    <div class="question-section" id="section-7">
         <h1>読解</h1>
         <div class="vietnamese">Đọc đoạn văn và chọn đáp án đúng nhất.</div>
         <div class="question">
@@ -1069,8 +1025,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 読解（情報検索） -->
-    <div class="question-section">
+    <div class="question-section" id="section-8">
         <h2>問題I．次の動物園の「ぞうのショー」のお知らせを見て、質問に答えてください。答えは１．２．３からいちばんいいものを一つ選んでください。</h2>
         <div class="vietnamese">Xem thông báo về “buổi biểu diễn voi” của sở thú dưới đây và trả lời câu hỏi.</div>
         <div class="question">
@@ -1208,8 +1163,7 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 聴解 -->
-    <div class="question-section">
+    <div class="question-section" id="section-9">
         <h1>聴解</h1>
         <h2>問題１：もんだい１では、はじめに質問を聞いてください。それから話を聞いて、もんだいようし１から４の中から、一番いいものを一つえらんでください。</h2>
         <div class="vietnamese">Nghe câu hỏi trước, sau đó nghe đoạn hội thoại và chọn đáp án đúng nhất từ 1 đến 4.</div>
@@ -1331,9 +1285,8 @@ button.reset:hover {
         </div>
     </div>
 
-    <!-- 聴解（内容理解 - 店・交通機関） -->
-    <div class="question-section">
-        <h2>問１．内容理解（店・交通機関）</h2>
+    <div class="question-section" id="section-10">
+        <h2>内容理解（店・交通機関）</h2>
         <div class="vietnamese">Nghe đoạn hội thoại và chọn đáp án đúng nhất.</div>
         <div class="question">
             <p>問１</p>
@@ -1367,25 +1320,25 @@ button.reset:hover {
         <div class="question">
             <p>問２</p>
             <audio controls>
-                                <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-6.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-6.mp3" type="audio/mpeg">
                 Trình duyệt của bạn không hỗ trợ thẻ audio.
             </audio>
             <div class="options">
                 <div class="option">
                     <input type="radio" id="q39-1" name="q39">
-                    <label for="q39-1">かるい　けいたいでんわ</label>
+                    <label for="q39-1">かるい けいたいでんわ</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q39-2" name="q39">
-                    <label for="q39-2">サイズが　おおきい　けいたいでんわ</label>
+                    <label for="q39-2">サイズが おおきい けいたいでんわ</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q39-3" name="q39">
-                    <label for="q39-3">いろいろ　できる　けいたいでんわ</label>
+                    <label for="q39-3">いろいろ できる けいたいでんわ</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q39-4" name="q39">
-                    <label for="q39-4">しゃしんが　きれいに　とれる　けいたいでんわ</label>
+                    <label for="q39-4">しゃしんが きれいに とれる けいたいでんわ</label>
                 </div>
             </div>
             <div class="answer-feedback" id="feedback-39"></div>
@@ -1393,7 +1346,7 @@ button.reset:hover {
         <div class="question">
             <p>問３</p>
             <div class="image-placeholder" style="width: 80%; max-width: 600px; height: auto;">
-                <img src="https://raw.githubusercontent.com/Hoangthuanitm/image/refs/heads/main/JFT%20basic%201-11.png" alt="Hình ảnh câu 38" id="image-q38">
+                <img src="https://raw.githubusercontent.com/Hoangthuanitm/image/refs/heads/main/JFT%20basic%201-11.png" alt="Hình ảnh câu 40" id="image-q40">
             </div>
             <audio controls>
                 <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-7.mp3" type="audio/mpeg">
@@ -1420,7 +1373,7 @@ button.reset:hover {
             <div class="answer-feedback" id="feedback-40"></div>
         </div>
         <div class="question">
-            <p>問4</p>
+            <p>問４</p>
             <audio controls>
                 <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-8.mp3" type="audio/mpeg">
                 Trình duyệt của bạn không hỗ trợ thẻ audio.
@@ -1445,15 +1398,18 @@ button.reset:hover {
             </div>
             <div class="answer-feedback" id="feedback-41"></div>
         </div>
- <!-- 内容理解(指示・アナウンス) -->
-    <div class="question-section">
-        <h2>内容理解(指示・アナウンス)</h2>
-    <p>問1</p>
-     <div class="image-placeholder" style="width: 80%; max-width: 600px; height: auto;">
-                <img src="https://raw.githubusercontent.com/Hoangthuanitm/image/refs/heads/main/JFT%20basic%201-12.png" alt="Hình ảnh câu 38" id="image-q38">
+    </div>
+
+    <div class="question-section" id="section-11">
+        <h2>内容理解（指示・アナウンス）</h2>
+        <div class="vietnamese">Nghe đoạn hội thoại và chọn đáp án đúng nhất.</div>
+        <div class="question">
+            <p>問１</p>
+            <div class="image-placeholder" style="width: 80%; max-width: 600px; height: auto;">
+                <img src="https://raw.githubusercontent.com/Hoangthuanitm/image/refs/heads/main/JFT%20basic%201-12.png" alt="Hình ảnh câu 42" id="image-q42">
             </div>
             <audio controls>
-                <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-9.mp3" type="audio/mpeg">
+                               <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-9.mp3" type="audio/mpeg">
                 Trình duyệt của bạn không hỗ trợ thẻ audio.
             </audio>
             <div class="options">
@@ -1477,9 +1433,9 @@ button.reset:hover {
             <div class="answer-feedback" id="feedback-42"></div>
         </div>
         <div class="question">
-            <p>問2</p>
-             <div class="image-placeholder" style="width: 80%; max-width: 600px; height: auto;">
-                <img src="https://raw.githubusercontent.com/Hoangthuanitm/image/refs/heads/main/JFT%20basic%201-13.png" alt="Hình ảnh câu 38" id="image-q38">
+            <p>問２</p>
+            <div class="image-placeholder" style="width: 80%; max-width: 600px; height: auto;">
+                <img src="https://raw.githubusercontent.com/Hoangthuanitm/image/refs/heads/main/JFT%20basic%201-13.png" alt="Hình ảnh câu 43" id="image-q43">
             </div>
             <audio controls>
                 <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-10.mp3" type="audio/mpeg">
@@ -1506,7 +1462,7 @@ button.reset:hover {
             <div class="answer-feedback" id="feedback-43"></div>
         </div>
         <div class="question">
-            <p>問3</p>
+            <p>問３</p>
             <audio controls>
                 <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-11.mp3" type="audio/mpeg">
                 Trình duyệt của bạn không hỗ trợ thẻ audio.
@@ -1514,25 +1470,25 @@ button.reset:hover {
             <div class="options">
                 <div class="option">
                     <input type="radio" id="q44-1" name="q44">
-                    <label for="q44-1">火曜日と　木曜日</label>
+                    <label for="q44-1">火曜日と木曜日</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q44-2" name="q44">
-                    <label for="q44-2">火曜日と　木曜日と　金曜日</label>
+                    <label for="q44-2">火曜日と木曜日と金曜日</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q44-3" name="q44">
-                    <label for="q44-3">火曜日と　木曜日と　金曜日と　土曜日</label>
+                    <label for="q44-3">火曜日と木曜日と金曜日と土曜日</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q44-4" name="q44">
-                    <label for="q44-4">火曜日と　木曜日と　金曜日と　土曜日と　日曜日</label>
+                    <label for="q44-4">火曜日と木曜日と金曜日と土曜日と日曜日</label>
                 </div>
             </div>
             <div class="answer-feedback" id="feedback-44"></div>
         </div>
         <div class="question">
-            <p>問4</p>
+            <p>問４</p>
             <audio controls>
                 <source src="https://raw.githubusercontent.com/Hoangthuanitm/Filemp3/main/JFT%20basic%201-12.mp3" type="audio/mpeg">
                 Trình duyệt của bạn không hỗ trợ thẻ audio.
@@ -1540,56 +1496,34 @@ button.reset:hover {
             <div class="options">
                 <div class="option">
                     <input type="radio" id="q45-1" name="q45">
-                    <label for="q45-1">機械で　探す</label>
+                    <label for="q45-1">機械で探す</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q45-2" name="q45">
-                    <label for="q45-2">係の　人に　言う</label>
+                    <label for="q45-2">係の人に言う</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q45-3" name="q45">
-                    <label for="q45-3">ほかの　図書館に　行く</label>
+                    <label for="q45-3">ほかの図書館に行く</label>
                 </div>
                 <div class="option">
                     <input type="radio" id="q45-4" name="q45">
-                    <label for="q45-4">本屋で　買う</label>
+                    <label for="q45-4">本屋で買う</label>
                 </div>
             </div>
             <div class="answer-feedback" id="feedback-45"></div>
         </div>
-        
-    <div class="result-section" style="display: none;">
-    <h2>採点結果 (Kết quả)</h2>
-    <div class="student-details"></div>
-    <table class="result-table">
-        <thead>
-            <tr>
-                <th>文字と語彙</th>
-                <th>会話・表現</th>
-                <th>読解</th>
-                <th>聴解</th>
-                <th>Tổng</th>
-                <th>Tỷ lệ</th>
-                <th>Xếp loại</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td id="section1-score"></td>
-                <td id="section2-score"></td>
-                <td id="section3-score"></td>
-                <td id="section4-score"></td>
-                <td id="total-score"></td>
-                <td id="total-percentage"></td>
-                <td id="rank"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-   <button id="submit-test" style="display: none;">テストを提出する (Nộp bài)</button>
-<button id="history-test-result" type="button" onclick="window.showPasswordModal()" style="display: none;">Lịch sử kiểm tra</button>
-<button id="reset-test" class="reset" style="display: none;">Làm lại</button>
- <div class="password-modal" id="password-modal">
+    </div>
+
+    <button id="submit-test" type="button" style="display: none;">テストを提出する (Nộp bài)</button>
+    <div id="message-result" class="error-message"></div>
+
+    <div class="result-section" id="results">
+        <h2>採点結果 (Kết quả)</h2>
+        <div id="score-display"></div>
+    </div>
+
+    <div class="password-modal" id="password-modal">
         <div class="password-box">
             <h2>Nhập mật khẩu</h2>
             <input type="password" id="password-input" placeholder="Mật khẩu">
@@ -1601,293 +1535,439 @@ button.reset:hover {
         </div>
     </div>
 
-
     <footer>
         <p>© 2025 Tài liệu kiểm tra | Thiết kế bởi Thuận</p>
     </footer>
 
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAfy4QMD9_7PyFHpInNdKDRWuW4AYCtLJ4",
-        authDomain: "history-e4633.firebaseapp.com",
-        projectId: "history-e4633",
-        storageBucket: "history-e4633.firebasestorage.app",
-        messagingSenderId: "331974436893",
-        appId: "1:331974436893:web:10c3c6adf7b66d2b5fbef4",
-        measurementId: "G-DC055090BW"
-    };
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfy4QMD9_7PyFHpInNdKDRWuW4AYCtLJ4",
+            authDomain: "history-e4633.firebaseapp.com",
+            projectId: "history-e4633",
+            storageBucket: "history-e4633.firebasestorage.app",
+            messagingSenderId: "331974436893",
+            appId: "1:331974436893:web:10c3c6adf7b66d2b5fbef4",
+            measurementId: "G-DC055090BW"
+        };
 
-    let db, testHistoryCollection;
-    try {
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        testHistoryCollection = collection(db, 'testHistoryJFTde1');
-    } catch (error) {
-        console.error('Lỗi khởi tạo Firebase:', error);
-        document.getElementById('message-info').textContent = 'Không thể kết nối với cơ sở dữ liệu. Vui lòng kiểm tra cấu hình.';
-    }
+        const db = getFirestore(app);
 
+        // Answer key for scoring
         const answerKey = {
-            q1: "わらいます",
-            q2: "そうじします",
-            q3: "はらいます",
-            q4: "はらわ",
-            q5: "やわらかい",
-            q6: "ゆび",
-            q7: "すいどう",
-            q8: "みじかい",
-            q9: "きまりました",
-            q10: "働かなく",
-            q11: "弱く",
-            q12: "短く",
-            q13: "飲んで",
-            q14: "あげよう",
-            q15: "買ったものではなく",
-            q16: "読むように しています",
-            q17: "借りたい",
-            q18: "なかなか 起きられないのです",
-            q19: "しか",
-            q20: "に",
-            q21: "またこんど",
-            q22: "見せてくださいませんか",
-            q23: "まいりました",
-            q24: "飲まなくてもいいです",
-            "q25-1": "歌とおどりを見ること",
-            "q25-2": "スピーチのけいけんがなかったけど、うまくいった",
-            "q26-1": "人が持たなくてもうごきます。",
-            "q26-2": "ロボットそうじきが、階段から落ちなかったこと",
-            "q27-1": "きかいが正しく動かないときに直します。",
-            "q27-2": "会員の人たちといろいろな話をすること",
-            q28: "2500",
-            q29: "10時半までにショー広場でチケットをかいます。",
-            q30: "700",
-            q31: "洗濯だけを1時間する",
-            q32: "50",
-            q33: "これから1ヵ月ぐらい",
-            q34: "1",
-            q35: "3",
-            q36: "2",
-            q37: "3",
-            q38: "4",
-            q39: "かるい　けいたいでんわ",
-            q40: "4",
-            q41: "20分後",
-            q42: "2",
-            q43: "4",
-            q44: "火曜日と　木曜日と　金曜日と　土曜日",
-            q45: "係の　人に　言う",
+            1: "わらいます",
+            2: "そうじします",
+            3: "ちょきんします",
+            4: "はらわ",
+            5: "やわらかい",
+            6: "ゆび",
+            7: "すいどう",
+            8: "みじかい",
+            9: "きまりました",
+            10: "働かない",
+            11: "弱く",
+            12: "短く",
+            13: "飲んで",
+            14: "あげよう",
+            15: "買ったものではなく",
+            16: "読むように しています",
+            17: "借りたい",
+            18: "なかなか 起きられないのです",
+            19: "しか",
+            20: "に",
+            21: "またこんど",
+            22: "見せてくださいませんか",
+            23: "まいりました",
+            24: "飲まなくてもいいです",
+            "25-1": "歌とおどりを見ること",
+            "25-2": "スピーチのけいけんがなかったけど、うまくいった",
+            "26-1": "人が持たなくてもうごきます。",
+            "26-2": "ロボットそうじきが、階段から落ちなかったこと",
+            "27-1": "きかいが正しく動かないときに直します。",
+            "27-2": "会員の人たちといろいろな話をすること",
+            28: "2000",
+            29: "10時半までにショー広場でチケットをかいます。",
+            30: "600",
+            31: "カーペットを洗う",
+            32: "23",
+            33: "これから６ヵ月ぐらい",
+            // Listening questions (34-45) require audio content for accurate answers
+            // Placeholder answers (to be updated with actual audio-based answers)
+            34: "1",
+            35: "2",
+            36: "3",
+            37: "4",
+            38: "1",
+            39: "しゃしんが きれいに とれる けいたいでんわ",
+            40: "2",
+            41: "20分後",
+            42: "1",
+            43: "2",
+            44: "火曜日と木曜日と金曜日",
+            45: "係の人に言う"
         };
 
         const sectionPoints = {
-        section1: { start: 1, end: 12, total: 11, pointsPerQuestion: 2 }, // 文字と語彙
-        section2: { start: 13, end: 24, total: 12, pointsPerQuestion: 3 }, // 会話・表現
-        section3: { start: 25, end: 33, total: 12, pointsPerQuestion: 5 }, // 読解
-        section4: { start: 34, end: 45, total: 12, pointsPerQuestion: 5 }  // 聴解
-    };
-        function calculateRadioSectionScore(start, end, total) {
+            1: 60, // 文字と語彙: 12 questions x 5 points
+            2: 60, // 会話・表現: 12 questions x 5 points
+            3: 60, // 読解: 12 questions x 5 points
+            4: 60  // 聴解: 12 questions x 5 points
+        };
+
+        let startTime = null;
+        let timerInterval = null;
+
+        function normalizeString(str) {
+            return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function getEvaluation(percentage) {
+            if (percentage >= 80) return 'A';
+            if (percentage >= 60) return 'B';
+            if (percentage >= 40) return 'C';
+            if (percentage >= 20) return 'D';
+            return 'F';
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function shuffleOptions() {
+            // Questions to exclude from shuffling (numeric answers in listening sections)
+            const noShuffleQuestions = [34, 35, 36, 37, 38, 40, 42, 43];
+            for (let q = 1; q <= 45; q++) {
+                // Handle multi-part questions (e.g., q25-1, q25-2)
+                if ([25, 26, 27].includes(q)) {
+                    [1, 2].forEach(sub => {
+                        if (!noShuffleQuestions.includes(`${q}-${sub}`)) {
+                            const optionsContainer = document.querySelector(`.question-section input[name="q${q}-${sub}"]`).closest('.options');
+                            if (optionsContainer) {
+                                const options = Array.from(optionsContainer.querySelectorAll('.option'));
+                                const shuffledOptions = shuffleArray(options.map(option => ({
+                                    id: option.querySelector('input').id,
+                                    name: option.querySelector('input').name,
+                                    checked: option.querySelector('input').checked,
+                                    label: option.querySelector('label').textContent
+                                })));
+                                optionsContainer.innerHTML = '';
+                                shuffledOptions.forEach((opt, index) => {
+                                    const div = document.createElement('div');
+                                    div.className = 'option';
+                                    div.innerHTML = `
+                                        <input type="radio" id="${opt.id}" name="${opt.name}" ${opt.checked ? 'checked' : ''}>
+                                        <label for="${opt.id}">${opt.label}</label>
+                                    `;
+                                    optionsContainer.appendChild(div);
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    // Skip shuffling for specified listening questions
+                    if (!noShuffleQuestions.includes(q)) {
+                        const optionsContainer = document.querySelector(`.question-section input[name="q${q}"]`).closest('.options');
+                        if (optionsContainer) {
+                            const options = Array.from(optionsContainer.querySelectorAll('.option'));
+                            const shuffledOptions = shuffleArray(options.map(option => ({
+                                id: option.querySelector('input').id,
+                                name: option.querySelector('input').name,
+                                checked: option.querySelector('input').checked,
+                                label: option.querySelector('label').textContent
+                            })));
+                            optionsContainer.innerHTML = '';
+                            shuffledOptions.forEach((opt, index) => {
+                                const div = document.createElement('div');
+                                div.className = 'option';
+                                div.innerHTML = `
+                                    <input type="radio" id="${opt.id}" name="${opt.name}" ${opt.checked ? 'checked' : ''}>
+                                    <label for="${opt.id}">${opt.label}</label>
+                                `;
+                                optionsContainer.appendChild(div);
+                            });
+                        }
+                    }
+                }
+            }
+            // Shuffle example options (if any)
+            ['q1-rei', 'q2-rei', 'q3-rei', 'q4-rei'].forEach(name => {
+                const optionsContainer = document.querySelector(`.example .options[name="${name}"]`);
+                if (optionsContainer) {
+                    const options = Array.from(optionsContainer.querySelectorAll('.option'));
+                    const shuffledOptions = shuffleArray(options.map(option => ({
+                        id: option.querySelector('input').id,
+                        name: option.querySelector('input').name,
+                        checked: option.querySelector('input').checked,
+                        label: option.querySelector('label').textContent
+                    })));
+                    optionsContainer.innerHTML = '';
+                    shuffledOptions.forEach((opt, index) => {
+                        const div = document.createElement('div');
+                        div.className = 'option';
+                        div.innerHTML = `
+                            <input type="radio" id="${opt.id}" name="${opt.name}" ${opt.checked ? 'checked' : ''}>
+                            <label for="${opt.id}">${opt.label}</label>
+                        `;
+                        optionsContainer.appendChild(div);
+                    });
+                }
+            });
+        }
+
+        function calculateRadioSectionScore(startQuestion, endQuestion, pointsPerQuestion, isMultiPart = false) {
             let score = 0;
-            for (let i = start; i <= end; i++) {
-                const question = `q${i}`;
-                const selected = document.querySelector(`input[name="${question}"]:checked`);
-                if (selected && selected.nextElementSibling.textContent === answerKey[question]) {
-                    score++;
+            if (isMultiPart) {
+                for (let q = startQuestion; q <= endQuestion; q++) {
+                    [1, 2].forEach(sub => {
+                        const selectedOption = document.querySelector(`input[name="q${q}-${sub}"]:checked`);
+                        if (selectedOption) {
+                            const userAnswer = selectedOption.nextElementSibling.textContent;
+                            if (userAnswer === answerKey[`${q}-${sub}`]) {
+                                score += pointsPerQuestion;
+                            }
+                            showRadioAnswerFeedback(`${q}-${sub}`);
+                        }
+                    });
+                }
+            } else {
+                for (let i = startQuestion; i <= endQuestion; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        const userAnswer = selectedOption.nextElementSibling.textContent;
+                        if (userAnswer === answerKey[i]) {
+                            score += pointsPerQuestion;
+                        }
+                        showRadioAnswerFeedback(i);
+                    }
                 }
             }
             return score;
         }
 
-        function calculateRadioSectionScore(start, end, total, pointsPerQuestion) {
-        let score = 0;
-        for (let i = start; i <= end; i++) {
-            const question = `q${i}`;
-            const selected = document.querySelector(`input[name="${question}"]:checked`);
-            if (selected && selected.nextElementSibling.textContent === answerKey[question]) {
-                score += pointsPerQuestion;
+        function showRadioAnswerFeedback(questionNumber) {
+            const feedbackElement = document.getElementById(`feedback-${questionNumber}`);
+            const selectedOption = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+            if (!selectedOption) {
+                feedbackElement.textContent = 'Bạn chưa chọn đáp án.';
+                feedbackElement.classList.add('wrong');
+                return;
             }
-        }
-        return score;
-    }
-
-    function calculateMultipleQuestionScore(questionPrefix, subQuestions, pointsPerQuestion) {
-        let score = 0;
-        subQuestions.forEach(sub => {
-            const selected = document.querySelector(`input[name="${questionPrefix}-${sub}"]:checked`);
-            if (selected && selected.nextElementSibling.textContent === answerKey[`${questionPrefix}-${sub}`]) {
-                score += pointsPerQuestion;
-            }
-        });
-        return score;
-    }
-
-    function startTest() {
-        const name = document.getElementById('name').value.trim();
-        const className = document.getElementById('class').value.trim();
-        const date = document.getElementById('date').value;
-        const messageInfo = document.getElementById('message-info');
-
-        if (!name || !className || !date) {
-            messageInfo.textContent = 'Vui lòng điền đầy đủ thông tin: Tên, Lớp, và Ngày.';
-            return;
-        }
-
-        messageInfo.textContent = '';
-        document.querySelector('.student-info').style.display = 'none';
-        document.getElementById('start-test').style.display = 'none';
-        document.getElementById('history-test').style.display = 'none';
-        document.querySelectorAll('.question-section').forEach(section => section.style.display = 'block');
-        document.getElementById('submit-test').style.display = 'inline-block';
-        document.getElementById('timer').style.display = 'block';
-
-        startTimer();
-    }
-
-    function submitTest() {
-        console.log('Bắt đầu submitTest');
-        const name = document.getElementById('name').value.trim();
-        const className = document.getElementById('class').value.trim();
-        const date = document.getElementById('date').value;
-        const messageInfo = document.getElementById('message-info');
-
-        if (!name || !className || !date) {
-            messageInfo.textContent = 'Vui lòng điền đầy đủ thông tin trước khi nộp bài.';
-            return;
-        }
-
-        const section1Score = calculateRadioSectionScore(1, 12, 11, sectionPoints.section1.pointsPerQuestion) + 
-                             calculateMultipleQuestionScore('q25', ['1', '2'], sectionPoints.section1.pointsPerQuestion);
-        const section2Score = calculateRadioSectionScore(13, 24, 12, sectionPoints.section2.pointsPerQuestion);
-        const section3Score = calculateMultipleQuestionScore('q26', ['1', '2'], sectionPoints.section3.pointsPerQuestion) + 
-                             calculateMultipleQuestionScore('q27', ['1', '2'], sectionPoints.section3.pointsPerQuestion) + 
-                             calculateRadioSectionScore(28, 33, 6, sectionPoints.section3.pointsPerQuestion);
-        const section4Score = calculateRadioSectionScore(34, 45, 12, sectionPoints.section4.pointsPerQuestion);
-        const totalScore = section1Score + section2Score + section3Score + section4Score;
-        const percentage = ((totalScore / 178) * 100).toFixed(2);
-
-        // Hiển thị phản hồi cho từng câu hỏi
-        for (let i = 1; i <= 45; i++) {
-            const question = `q${i}`;
-            const feedback = document.getElementById(`feedback-${i}`);
-            const selected = document.querySelector(`input[name="${question}"]:checked`);
-            if (selected) {
-                const isCorrect = selected.nextElementSibling.textContent === answerKey[question];
-                feedback.textContent = isCorrect ? 
-                    `Đúng` : 
-                    `Sai. Đáp án là「${answerKey[question]}」`;
-                feedback.className = `answer-feedback ${isCorrect ? '' : 'wrong'}`;
+            const userAnswer = selectedOption.nextElementSibling.textContent;
+            if (userAnswer === answerKey[questionNumber]) {
+                feedbackElement.textContent = 'Đúng!';
+                feedbackElement.classList.remove('wrong');
+            } else {
+                feedbackElement.textContent = `Sai. Đáp án đúng là: ${answerKey[questionNumber]}`;
+                feedbackElement.classList.add('wrong');
             }
         }
 
-        ['q25-1', 'q25-2', 'q26-1', 'q26-2', 'q27-1', 'q27-2'].forEach(q => {
-            const feedback = document.getElementById(`feedback-${q}`);
-            const selected = document.querySelector(`input[name="${q}"]:checked`);
-            if (selected) {
-                const isCorrect = selected.nextElementSibling.textContent === answerKey[q];
-                feedback.textContent = isCorrect ? 
-                    `Đúng` : 
-                    `Sai. Đáp án là「${answerKey[q]}」`;
-                feedback.className = `answer-feedback ${isCorrect ? '' : 'wrong'}`;
-            }
-        });
-
-        const rank = percentage >= 80 ? 'A' : percentage >= 60 ? 'B' : percentage >= 40 ? 'C' : 'F';
-
-        document.getElementById('section1-score').textContent = `${section1Score}/${sectionPoints.section1.total * sectionPoints.section1.pointsPerQuestion}`;
-        document.getElementById('section2-score').textContent = `${section2Score}/${sectionPoints.section2.total * sectionPoints.section2.pointsPerQuestion}`;
-        document.getElementById('section3-score').textContent = `${section3Score}/${sectionPoints.section3.total * sectionPoints.section3.pointsPerQuestion}`;
-        document.getElementById('section4-score').textContent = `${section4Score}/${sectionPoints.section4.total * sectionPoints.section4.pointsPerQuestion}`;
-        document.getElementById('total-score').textContent = `${totalScore}/178`;
-        document.getElementById('total-percentage').textContent = `${percentage}%`;
-        document.getElementById('rank').textContent = `Xếp Loại: ${rank}`;
-        document.getElementById('rank').className = rank === 'A' ? 'rank-a' : rank === 'F' ? 'rank-f' : '';
-
-        const studentDetails = document.querySelector('.student-details');
-        studentDetails.innerHTML = `
-            <p>Tên: ${name}</p>
-            <p>Lớp: ${className}</p>
-            <p>Ngày: ${date}</p>
-        `;
-
-        document.querySelectorAll('.question-section').forEach(section => section.style.display = 'block');
-        document.querySelector('.result-section').style.display = 'block';
-        document.getElementById('submit-test').style.display = 'none';
-        document.getElementById('history-test-result').style.display = 'inline-block';
-        document.getElementById('reset-test').style.display = 'inline-block';
-        document.getElementById('timer').style.display = 'none';
-
-        if (db && testHistoryCollection) {
-            addDoc(testHistoryCollection, {
-                name: name,
-                class: className,
-                date: date,
-                results: {
-                    '文字と語彙': { score: section1Score, total: sectionPoints.section1.total * sectionPoints.section1.pointsPerQuestion },
-                    '会話・表現': { score: section2Score, total: sectionPoints.section2.total * sectionPoints.section2.pointsPerQuestion },
-                    '読解': { score: section3Score, total: sectionPoints.section3.total * sectionPoints.section3.pointsPerQuestion },
-                    '聴解': { score: section4Score, total: sectionPoints.section4.total * sectionPoints.section4.pointsPerQuestion }
-                },
-                totalScore: totalScore,
-                percentage: parseFloat(percentage),
-                rank: rank,
-                timestamp: serverTimestamp()
-            }).then(() => {
-                console.log('Lưu kết quả thành công');
-                messageInfo.textContent = 'Kết quả đã được lưu thành công!';
-            }).catch(error => {
-                console.error('Lỗi khi lưu kết quả:', error);
-                messageInfo.textContent = 'Lỗi khi lưu kết quả: ' + error.message;
-            });
-        } else {
-            messageInfo.textContent = 'Không thể lưu kết quả do lỗi khởi tạo Firebase.';
+        function formatTime(date) {
+            return date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         }
-    }
 
-    function resetTest() {
-        document.getElementById('name').value = '';
-        document.getElementById('class').value = '';
-        document.getElementById('date').value = '';
-        document.getElementById('message-info').textContent = '';
-        document.querySelector('.student-info').style.display = 'block';
-        document.getElementById('start-test').style.display = 'inline-block';
-        document.getElementById('history-test').style.display = 'inline-block';
-        document.querySelectorAll('.question-section').forEach(section => section.style.display = 'none');
-        document.querySelector('.result-section').style.display = 'none';
-        document.getElementById('submit-test').style.display = 'none';
-        document.getElementById('history-test-result').style.display = 'none';
-        document.getElementById('reset-test').style.display = 'none';
-        document.getElementById('timer').style.display = 'none';
-        document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
-        document.querySelectorAll('.answer-feedback').forEach(feedback => feedback.textContent = '');
-    }
+        function startTimer() {
+            startTime = new Date();
+            const endTime = new Date(startTime.getTime() + 25 * 60 * 1000);
+            const timerElement = document.getElementById('timer');
 
-    function showPasswordModal() {
-        document.getElementById('password-modal').style.display = 'flex';
-        document.getElementById('password-input').focus();
-    }
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                const timeLeft = endTime - now;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = 'Hết giờ!';
+                    timerElement.classList.add('warning');
+                    submitTest();
+                    return;
+                }
+                const minutes = Math.floor(timeLeft / 1000 / 60);
+                const seconds = Math.floor((timeLeft / 1000) % 60);
+                timerElement.textContent = `Thời gian còn lại: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 5 * 60 * 1000) {
+                    timerElement.classList.add('warning');
+                }
+            }, 1000);
+        }
 
-    function closePasswordModal() {
-        document.getElementById('password-modal').style.display = 'none';
-        document.getElementById('password-input').value = '';
-        document.getElementById('password-error').textContent = '';
-    }
+        function checkPassword() {
+            const passwordInput = document.getElementById('password-input').value;
+            const passwordError = document.getElementById('password-error');
+            if (passwordInput === '112') {
+                window.location.href = 'history.html';
+            } else {
+                passwordError.textContent = 'Mật khẩu không đúng. Vui lòng thử lại.';
+                document.getElementById('password-input').value = '';
+            }
+        }
 
-    function checkPassword() {
-        const passwordInput = document.getElementById('password-input').value;
-        const passwordError = document.getElementById('password-error');
-        if (passwordInput === '112') {
-            window.location.href = 'history.html';
-        } else {
-            passwordError.textContent = 'Mật khẩu không đúng. Vui lòng thử lại.';
+        function showPasswordModal() {
+            document.getElementById('password-modal').style.display = 'flex';
+            document.getElementById('password-input').focus();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').style.display = 'none';
             document.getElementById('password-input').value = '';
+            document.getElementById('password-error').textContent = '';
         }
+
+        window.checkPassword = checkPassword;
+        window.showPasswordModal = showPasswordModal;
+        window.closePasswordModal = closePasswordModal;
+        window.resetTest = resetTest;
+
+        async function submitTest() {
+    const endTime = new Date();
+    const name = document.getElementById('name').value.trim();
+    const className = document.getElementById('class').value.trim();
+    const dateInput = document.getElementById('date').value;
+    const messageResult = document.getElementById('message-result');
+    const resultSection = document.getElementById('results');
+    const scoreDisplay = document.getElementById('score-display');
+
+    if (!name || !className || !dateInput) {
+        messageResult.textContent = 'Vui lòng điền đầy đủ thông tin cá nhân.';
+        return;
     }
 
-    document.getElementById('start-test').addEventListener('click', startTest);
-    document.getElementById('submit-test').addEventListener('click', submitTest);
-    document.getElementById('reset-test').addEventListener('click', resetTest);
-    window.showPasswordModal = showPasswordModal;
-    window.closePasswordModal = closePasswordModal;
-    window.checkPassword = checkPassword;
-</script>
+    clearInterval(timerInterval);
+    document.getElementById('timer').style.display = 'none';
+    document.getElementById('submit-test').style.display = 'none';
+
+    // Calculate scores for each section
+    const section1Score = calculateRadioSectionScore(1, 12, 5); // 文字と語彙
+    const section2Score = calculateRadioSectionScore(13, 24, 5); // 会話・表現
+    const section3Score = calculateRadioSectionScore(25, 33, 5, true); // 読解
+    const section4Score = calculateRadioSectionScore(34, 45, 4); // 聴解
+
+    const totalScore = section1Score + section2Score + section3Score + section4Score;
+    const percentage = Math.round((totalScore / 208) * 100); // Tổng điểm tối đa là 208
+    const evaluation = getEvaluation(percentage);
+    const rankClass = evaluation === 'A' ? 'rank-a' : evaluation === 'F' ? 'rank-f' : '';
+
+    const resultTable = `
+        <div class="student-details">
+            <p><strong>Tên:</strong> ${name}</p>
+            <p><strong>Lớp:</strong> ${className}</p>
+            <p><strong>Ngày:</strong> ${dateInput}</p>
+        </div>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>文字と語彙</th>
+                    <th>会話・表現</th>
+                    <th>読解</th>
+                    <th>聴解</th>
+                    <th>Tổng</th>
+                    <th>Tỷ lệ</th>
+                    <th>Xếp loại</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${section1Score}/60</td>
+                    <td>${section2Score}/60</td>
+                    <td>${section3Score}/45</td>
+                    <td>${section4Score}/48</td>
+                    <td>${totalScore}/208</td>
+                    <td>${percentage}%</td>
+                    <td class="${rankClass}">${evaluation}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="window.resetTest()">Làm lại bài kiểm tra</button>
+        <button onclick="window.showPasswordModal()">Xem lịch sử kiểm tra</button>
+    `;
+    scoreDisplay.innerHTML = resultTable;
+    resultSection.style.display = 'block';
+
+    // Save to Firestore
+    const testData = {
+        name: name,
+        class: className,
+        date: dateInput,
+        section1Score: section1Score,
+        section2Score: section2Score,
+        section3Score: section3Score,
+        section4Score: section4Score,
+        totalScore: totalScore,
+        percentage: percentage,
+        evaluation: evaluation,
+        startTime: formatTime(startTime),
+        endTime: formatTime(endTime)
+    };
+
+    try {
+        await addDoc(collection(db, "testHistoryJFTde1"), testData);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+
+    // Shuffle options after submission
+    shuffleOptions();
+}
+
+        function resetTest() {
+            document.getElementById('name').value = '';
+            document.getElementById('class').value = '';
+            document.getElementById('date').value = '';
+            document.getElementById('message-info').textContent = '';
+            document.getElementById('message-result').textContent = '';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('timer').style.display = 'none';
+            document.getElementById('start-test').style.display = 'inline-block';
+            document.getElementById('history-test').style.display = 'inline-block';
+            document.getElementById('submit-test').style.display = 'none';
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('.answer-feedback').forEach(feedback => {
+                feedback.textContent = '';
+                feedback.classList.remove('wrong');
+            });
+            clearInterval(timerInterval);
+            // Shuffle options for a new test
+            shuffleOptions();
+        }
+
+        document.getElementById('start-test').addEventListener('click', () => {
+            const name = document.getElementById('name').value.trim();
+            const className = document.getElementById('class').value.trim();
+            const dateInput = document.getElementById('date').value;
+            const messageInfo = document.getElementById('message-info');
+
+            if (!name || !className || !dateInput) {
+                messageInfo.textContent = 'Vui lòng điền đầy đủ thông tin cá nhân.';
+                return;
+            }
+
+            messageInfo.textContent = '';
+            document.getElementById('start-test').style.display = 'none';
+            document.getElementById('history-test').style.display = 'none';
+            document.getElementById('submit-test').style.display = 'inline-block';
+            document.getElementById('timer').style.display = 'block';
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.style.display = 'block';
+            });
+            startTimer();
+            // Shuffle options at the start of the test
+            shuffleOptions();
+        });
+
+        document.getElementById('submit-test').addEventListener('click', submitTest);
+    </script>
+</body>
+</html>
